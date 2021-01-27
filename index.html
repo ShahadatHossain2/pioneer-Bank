@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="login-area">
+        <h1 class="text-center">Welcome To Pioneer Bank</h1>
+        <div class="submit-area">
+            <h4>login</h4>
+            <input type="text" class="form-control" placeholder="Email">
+            <br>
+            <input type="password" class="form-control" placeholder="Password">
+            <br>
+            <button id="login" class="btn btn-success">Enter</button>
+        </div>
+    </section>
+
+    <section id="transaction-area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h1>$<span id="depositDisplay">00</span></h1>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h1>$<span id="withdrawDisplay">00</h1>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h1>$<span id="balanceDisplay">1240</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+               <div class="submit-area">
+                <h4>Deposit</h4>
+                <input id="depositAmount" class="form-control" type="text" placeholder="$ amount you want to deposit"> <br>
+                <button id="addDeposit" class="btn btn-success">Deposit</button>
+               </div>
+            </div>
+            <div class="col-md-6">
+             <div class="submit-area">
+                <h4>Withdraw</h4>
+                <input id="withdrawAmount" class="form-control" type="text" placeholder="$ amount you want to withdraw"> <br>
+                <button id="addWithdraw" class="btn btn-success">Withdraw</button>
+             </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+
+    //login event handler
+    document.getElementById('login').addEventListener('click', function() {
+        document.getElementById('login-area').style.display = "none";
+        document.getElementById('transaction-area').style.display = "block";
+    })
+
+    //transaction event handler
+    document.getElementById('addDeposit').addEventListener('click', function(){
+        const depositAmount = document.getElementById('depositAmount').value;
+        const depositNumber = parseFloat(depositAmount);
+
+        updateSpan('depositDisplay', depositNumber);
+
+        updateSpan('balanceDisplay', depositNumber);
+
+        // const currentDeposit = parseFloat(document.getElementById('depositDisplay').innerText);
+        // const totalDeposit = currentDeposit + depositNumber;
+
+        // document.getElementById('depositDisplay').innerText = totalDeposit;
+
+        // const currentBalance = parseFloat(document.getElementById('balanceDisplay').innerText);
+        // const totalBalance = currentBalance+depositNumber;
+
+        // document.getElementById('balanceDisplay').innerText = totalBalance;
+
+        document.getElementById('depositAmount').value = "";
+    })
+
+    document.getElementById('addWithdraw').addEventListener('click', function(){
+        const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value);
+        const currentWithdraw = parseFloat(document.getElementById('withdrawDisplay').innerText);
+        const totalWithdraw = currentWithdraw + withdrawAmount;
+
+        document.getElementById('withdrawDisplay').innerText = totalWithdraw;
+
+        const currentBalance = parseFloat(document.getElementById('balanceDisplay').innerText);
+        const totalBalance = currentBalance-withdrawAmount;
+
+        document.getElementById('balanceDisplay').innerText = totalBalance;
+        document.getElementById('withdrawAmount').value = "";
+    })
+
+    function updateSpan(id,balance) {
+        const current = parseFloat(document.getElementById(id).innerText);
+        const total = current + balance;
+
+        document.getElementById(id).innerText = total;
+    }
+
+</script>
+</html>
